@@ -7,7 +7,7 @@ Simply clone this repo into your project directory and execute the bash script '
 git clone https://github.com/zawie/z412L1
 z412L1/test
 ```
-If you want, you can pipe the output to a seperate file
+Optionally, you can pipe the output to a seperate file:
 ```
 z412L1/test >> output.log
 ```
