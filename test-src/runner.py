@@ -3,7 +3,7 @@
 IMPORTANT! You have to set the path to your 412fe here.
 """
 #IMPL = "/storage-home/a/adz2/comp412/lab1/412fe" 
-IMPL = "" #Path to your 412fe (MUST FILL OUT!!
+IMPL = "" #Path to your 412fe (MUST FILL OUT!!)
 REF = "~comp412/students/lab1/lab1_ref" #Path to reference solution
 
 SRC_DIR = "./test-src"
