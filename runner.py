@@ -11,7 +11,7 @@ COURSE_DIR = "/clear/courses/comp412/students"
 ILOC_DIRS = [REPO_DIR + "/blocks", COURSE_DIR+"/lab1/test_inputs"] + [COURSE_DIR+"/ILOC/blocks/lab" + str(n) for n in (2,3)]
 #Add your own directory to ILOC_DIRS list!
 
-TIME_LIMIT = 5 #in seconds
+TIME_LIMIT = 1 #in seconds
 """
 Test suite implementation
 """
@@ -92,7 +92,7 @@ def runTests():
         p.join(TIME_LIMIT)
         if p.is_alive():
             p.terminate()
-            print('❌ {} timed out!'.format(f))
+            print('❌ {} failed!\n- Summary:\n\tTimed out! Your test took longer than {}s.\n\tThis limit can be modified in runner.py'.format(f, TIME_LIMIT))
             fail_count += 1
             p.join()
         else:
