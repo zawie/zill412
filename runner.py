@@ -114,4 +114,4 @@ if (IMPL == ""):
     exit(1)
 
 runTests()
-print("\nConsider adding your own tests cases to the repository so the whole class can benefit!\nhttps://github.com/zawie/z412L1")
+print("\nConsider adding your own tests cases to the repository so the whole class can benefit!\nhttps://github.com/zawie/z412L1\n")
