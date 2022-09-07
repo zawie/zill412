@@ -8,6 +8,7 @@ git clone https://github.com/zawie/z412L1
 z412L1/test
 ```
 These commands should be run in the root of your project directory
+
 *⚠️ NOTE*: This assumes that both this test repositroy and your executable (412fe) is in the root directory of your project. 
 
 ## 🤖 How does it work?
