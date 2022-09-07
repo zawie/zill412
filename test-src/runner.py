@@ -2,7 +2,8 @@
 """
 IMPORTANT! You have to set the path to your 412fe here.
 """
-IMPL = "/storage-home/a/adz2/comp412/ILOC-frontend/412fe" #Path to your 412fe (MUST FILL OUT!!)
+#IMPL = "/storage-home/a/adz2/comp412/lab1/412fe" 
+IMPL = "" #Path to your 412fe (MUST FILL OUT!!
 REF = "~comp412/students/lab1/lab1_ref" #Path to reference solution
 
 SRC_DIR = "./test-src"
@@ -88,6 +89,11 @@ def runTests():
         print('\n🚨 You passed {}/{} tests.'.format(num_tests - fail_count, num_tests))
     else:
         print('\n🚀 You passed all {} tests!\n'.format(num_tests))
-    
+
+#Asser implementation has been specified
+if (IMPL == ""):
+    print("❗️ You need to specificy your implementation path in runner.py!")
+    exit(1)
+
 runTests()
 print("\nConsider adding your own tests cases to the repository so the whole class can benefit!\nhttps://github.com/zawie/412-lab1-test-suite")
