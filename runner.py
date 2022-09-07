@@ -13,6 +13,13 @@ REPO_DIR = "./z412L1"
 COURSE_DIR = "/clear/courses/comp412/students"
 
 ILOC_DIRS = [REPO_DIR + "/blocks", COURSE_DIR+"/lab1/test_inputs"] + [COURSE_DIR+"/ILOC/blocks/lab" + str(n) for n in (2,3)]
+ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2012/lab3"]
+ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2013/lab2"]
+ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2013/lab3"]
+ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2014/lab2"]
+ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2014/lab3"]
+ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2015/lab2"]
+ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2015/lab3"]
 #Add your own directory to ILOC_DIRS list!
 
 TIME_LIMIT = 1 #in seconds
