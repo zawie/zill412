@@ -1,5 +1,5 @@
 # 🥯 z412L1
-This is a COMP 412 lab 1 student made test suite.
+This is a COMP 412 lab 1 student made test suite. It has <563 tests!
 
 ## 🚀 How do I use this?
 Simply clone this repo into your project directory and execute the bash script 'test' located in the folder:
