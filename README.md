@@ -9,7 +9,7 @@ z412L1/test
 ```
 These commands should be run in the root of your project directory.
 
-*⚠️ NOTE*: This assumes that both this test repository and your executable (412fe) is in the root directory of your project. 
+*⚠️ NOTE*: This assumes that both this test repository and your executable (412fe) is in the same directory and you run the commands from said directory.
 
 ## 🤖 How does it work?
 It loops through a set of ILOC of files and compares your implementation's output to the references output. 
