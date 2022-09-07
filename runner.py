@@ -110,13 +110,3 @@ if (IMPL == ""):
 
 runTests()
 print("\nConsider adding your own tests cases to the repository so the whole class can benefit!\nhttps://github.com/zawie/412-lab1-test-suite")
-
-
-import multiprocessing
-import time
-
-# bar
-def bar():
-    for i in range(100):
-        print "Tick"
-        time.sleep(1)
