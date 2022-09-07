@@ -7,9 +7,11 @@ IMPL = "./412fe" #Path to your 412fe (MUST FILL OUT!!)
 REF = "~comp412/students/lab1/lab1_ref" #Path to reference solution
 
 REPO_DIR = "./412L1-test-suite"
-ILOC_DIR = REPO_DIR + "/blocks"
+COURSE_DIR = "/clear/courses/comp412/students"
+ILOC_DIRS = [REPO_DIR + "/blocks", COURSE_DIR+"/lab1/test_inputs"] + [COURSE_DIR+"/ILOC/blocks/lab" + str(n) for n in (2,3)]
+#Add your own directory to ILOC_DIRS list!
 
-TIME_LIMIT = 1 #in seconds
+TIME_LIMIT = 5 #in seconds
 """
 Test suite implementation
 """
@@ -41,17 +43,15 @@ def parseErroredLines(output):
             bad_lines.add(int(match.group(1)))
     return bad_lines
     
-def executeTest(ilocFileName):
-    pathToILOC = ILOC_DIR + "/" + ilocFileName
-
-    ref_output = run(REF, pathToILOC)
-    impl_output = run(IMPL, pathToILOC)
+def executeTest(filePath):
+    ref_output = run(REF, filePath)
+    impl_output = run(IMPL, filePath)
 
     ref_lines = parseErroredLines(ref_output)
     impl_lines = parseErroredLines(impl_output)
 
     if (ref_lines == impl_lines):
-        print('✅ "{}" passed!'.format(ilocFileName))
+        print('✅ {} passed!'.format(filePath))
         exit(0)
         #return True #Passed!
     else:
@@ -59,7 +59,7 @@ def executeTest(ilocFileName):
         true_positives = len(impl_lines.intersection(ref_lines))
         false_positives = len(impl_lines.difference(ref_lines))
 
-        print('❌ "{}" failed!'.format(ilocFileName))
+        print('❌ {} failed!'.format(filePath))
         print("- Summary:")
         tabprint("You identified {}/{} errors correctly.".format(true_positives, num_errors), 1)
         tabprint("You identified {} correct lines as errors.".format(false_positives), 1)
@@ -71,27 +71,28 @@ def executeTest(ilocFileName):
         exit(1)
         #return False #Failed!
 
-def getFilesNames():
-    filenames = set()
-    for filename in os.listdir(ILOC_DIR):
-        f = os.path.join(ILOC_DIR, filename)
-        if os.path.isfile(f):
-            filenames.add(filename)
-    return filenames
+def getFiles():
+    files = set()
+    for d in ILOC_DIRS:
+        for filename in os.listdir(d):
+            f = os.path.join(d, filename)
+            if os.path.isfile(f):
+                files.add(f)
+    return files
 
 def runTests():
-    filenames = getFilesNames()
-    num_tests = len(filenames)
+    files = getFiles()
+    num_tests = len(files)
     fail_count = 0
     
     print("Running {} tests...".format(num_tests))
-    for f in filenames:
+    for f in files:
         p = multiprocessing.Process(target=executeTest, args=(f,))
         p.start()
         p.join(TIME_LIMIT)
         if p.is_alive():
             p.terminate()
-            print('❌ "{}" timed out!'.format(f))
+            print('❌ {} timed out!'.format(f))
             fail_count += 1
             p.join()
         else:
