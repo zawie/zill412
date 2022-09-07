@@ -1,13 +1,17 @@
 # -*- coding: iso-8859-15 -*-
 """
-IMPORTANT! You have to set the path to your 412fe here.
+Repository: https://github.com/zawie/z412L1
+Consider adding your own tests cases to the repository so the whole class can benefit!
+You can add tests (and push) to the blocks directory in this repository
 """
+
 #IMPL = "/storage-home/a/adz2/comp412/lab1/412fe" 
 IMPL = "./412fe" #Path to your 412fe (MUST FILL OUT!!)
 REF = "~comp412/students/lab1/lab1_ref" #Path to reference solution
 
-REPO_DIR = "./412L1-test-suite"
+REPO_DIR = "./z412L1"
 COURSE_DIR = "/clear/courses/comp412/students"
+
 ILOC_DIRS = [REPO_DIR + "/blocks", COURSE_DIR+"/lab1/test_inputs"] + [COURSE_DIR+"/ILOC/blocks/lab" + str(n) for n in (2,3)]
 #Add your own directory to ILOC_DIRS list!
 
@@ -110,4 +114,4 @@ if (IMPL == ""):
     exit(1)
 
 runTests()
-print("\nConsider adding your own tests cases to the repository so the whole class can benefit!\nhttps://github.com/zawie/412-lab1-test-suite")
+print("\nConsider adding your own tests cases to the repository so the whole class can benefit!\nhttps://github.com/zawie/z412L1")
