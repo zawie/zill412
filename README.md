@@ -1,5 +1,5 @@
 # 🥯 z412L1
-This is a COMP 412 lab 1 student made test suite.
+This is a COMP 412 lab 1 student made test suite. It has <563 tests!
 
 ## 🚀 How do I use this?
 Simply clone this repo into your project directory and execute the bash script 'test' located in the folder:
@@ -7,9 +7,13 @@ Simply clone this repo into your project directory and execute the bash script '
 git clone https://github.com/zawie/z412L1
 z412L1/test
 ```
+Optionally, you can pipe the output to a seperate file:
+```
+z412L1/test >> output.log
+```
 These commands should be run in the root of your project directory.
 
-*⚠️ NOTE*: This assumes that both this test repository and your executable (412fe) is in the root directory of your project. 
+*⚠️ NOTE*: This assumes that both this test repository and your executable (412fe) is in the same directory and you run the commands from said directory.
 
 ## 🤖 How does it work?
 It loops through a set of ILOC of files and compares your implementation's output to the references output. 
