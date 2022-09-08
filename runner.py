@@ -30,7 +30,6 @@ import re
 import os
 import commands
 import multiprocessing
-import time
 
 #Helper print function
 def tabprint(output, tab_count):
@@ -63,8 +62,7 @@ def executeTest(filePath):
 
     if (ref_lines == impl_lines):
         print('✅ {} passed!'.format(filePath))
-        exit(0)
-        #return True #Passed!
+        exit(0) #Passed
     else:
         num_errors = len(ref_lines)
         true_positives = len(impl_lines.intersection(ref_lines))
@@ -79,16 +77,16 @@ def executeTest(filePath):
         print("- Your output:")
         tabprint(impl_output, 1)
 
-        exit(1)
-        #return False #Failed!
+        exit(1) #Failed
 
 def getFiles():
-    files = set()
+    files = list()
     for d in ILOC_DIRS:
         for filename in os.listdir(d):
-            f = os.path.join(d, filename)
-            if os.path.isfile(f):
-                files.add(f)
+            if filename.endswith(".i"):
+                f = os.path.join(d, filename)
+                if os.path.isfile(f):
+                    files.append(f)
     return files
 
 def runTests():
