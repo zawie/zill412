@@ -49,22 +49,27 @@ def run(pathToImpl, pathToILOC):
 
     return output
 
-def parseErroredLines(output):
+def parseOutput(output):
     bad_lines = set()
+    contains_success_msg = False
     for line in output.split('\n'):
-        match = re.match(r'^ERROR (\d+):', line)
-        if match != None:
-            bad_lines.add(int(match.group(1)))
-    return bad_lines
-    
+        match_error = re.match(r'^ERROR (\d+):', line)
+        if match_error != None:
+            bad_lines.add(int(match_error.group(1)))
+        elif not contains_success_msg: 
+            #Check if the output contains a success message (on a non-error line)
+            search_success = re.search(r'(^|\s)(((S|s)ucce((ss)|(eded)))|(SUCCE((SS)|(EDED))))', line)
+            contains_success_msg = search_success != None
+    return (bad_lines, contains_success_msg)
+
 def executeTest(filePath):
     ref_output = run(REF, filePath)
     impl_output = run(IMPL, filePath)
 
-    ref_lines = parseErroredLines(ref_output)
-    impl_lines = parseErroredLines(impl_output)
+    (ref_lines, ref_has_success_msg) = parseOutput(ref_output)
+    (impl_lines, impl_has_succes_msg) = parseOutput(impl_output)
 
-    if (ref_lines == impl_lines):
+    if (ref_lines == impl_lines and ref_has_success_msg == impl_has_succes_msg):
         print('✅ {} passed!'.format(filePath))
         exit(0) #Passed
     else:
@@ -76,6 +81,12 @@ def executeTest(filePath):
         print("- Summary:")
         tabprint("You identified {}/{} errors correctly.".format(true_positives, num_errors), 1)
         tabprint("You identified {} correct lines as errors.".format(false_positives), 1)
+        if (ref_has_success_msg != impl_has_succes_msg):
+            tabprint("You {} a success message while the reference {}.".format(impl_has_succes_msg and "have" or "do not have", ref_has_success_msg and "does" or "does not"), 1)
+            if (not impl_has_succes_msg):
+                tabprint("NOTE: Your success message must contain the word \"(S|s)ucceeded\", \"(S|s)uccess\", \"SUCCESS\", or \"SUCCEEDED\"; this can be changed in runner.py.", 1)
+        else:
+            tabprint("You and the reference both {} a success message.".format(impl_has_succes_msg and "have" or "do not have"), 1)
         print("- Reference output:")
         tabprint(ref_output, 1)
         print("- Your output:")
