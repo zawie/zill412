@@ -20,7 +20,7 @@ It loops through a set of ILOC of files and compares your implementation's outpu
 It only expects that you flag the erroneous lines at least once.
 Moreover, it will also indicate failure if you flag an correct line as erroneous.
 
-*⚠️ NOTE*: This test suite fails if a test takes longer than 1 second. This can be changed in `runner.py`, `TIME_LIMIT`
+*⚠️ NOTE*: This a test fails if it takes longer than 1 second. This can be changed in `runner.py` (`TIME_LIMIT`).
 
 ## 🧱 How do I contribute?
 The biggest thing this needs is *MORE ILOC FILES*. Please chip in and contribute some test files in the `/blocks` directory. 
