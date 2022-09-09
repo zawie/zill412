@@ -5,6 +5,11 @@ Consider adding your own tests cases to the repository so the whole class can be
 You can add tests (and push) to the blocks directory in this repository
 """
 
+"""
+Max time a test is allowed to run:
+"""
+TIME_LIMIT = 1 #in seconds
+
 #IMPL = "/storage-home/a/adz2/comp412/lab1/412fe" 
 IMPL = "./412fe" #Path to your 412fe (MUST FILL OUT!!)
 REF = "~comp412/students/lab1/lab1_ref" #Path to reference solution
@@ -22,7 +27,6 @@ ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2015/lab2"]
 ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2015/lab3"]
 #Add your own directory to ILOC_DIRS list!
 
-TIME_LIMIT = 1 #in seconds
 """
 Test suite implementation
 """
