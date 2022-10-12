@@ -1,4 +1,4 @@
-# 🥯 zill412
+# 🥒 zill412
 This is a COMP 412 student made test suite. 
 
 ## 🚀 How do I use this?
