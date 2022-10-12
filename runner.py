@@ -1,7 +1,7 @@
 # -*- coding: iso-8859-15 -*-
 from __future__ import division
 """
-Repository: https://github.com/zawie/z412L1
+Repository: https://github.com/zawie/zill412
 Consider adding your own tests cases to the repository so the whole class can benefit!
 You can add tests (and push) to the blocks directory in this repository
 """
@@ -17,7 +17,7 @@ REF = "~comp412/students/lab2/lab2_ref" #Path to reference solution
 SIM = "/clear/courses/comp412/students/lab2/sim" #Path to ILOC simulator
 REG_LIST = [5, 7] # You can change the list of physical register numbers you want to test.
 
-REPO_DIR = "./z412L1"
+REPO_DIR = "./zill412"
 COURSE_DIR = "/clear/courses/comp412/students"
 
 ILOC_DIRS = [COURSE_DIR+"/ILOC/blocks/lab" + str(n) for n in ([2])]
@@ -251,14 +251,14 @@ def main(lab, filename):
         for reg in REG_LIST:
             print('Run tests with register: ' + str(reg))
             runTests(lab, reg)
-    print("\nConsider adding your own tests cases to the repository so the whole class can benefit!\nhttps://github.com/zawie/z412L1\n")
+    print("\nConsider adding your own tests cases to the repository so the whole class can benefit!\nhttps://github.com/zawie/zill412\n")
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Missing command line arguments. Please use the -h flag for help.")
     elif sys.argv[1] == "-h":
         print("Command Syntax:")
-        print("\t z412L1/test lab filename")
+        print("\t zill412/test lab filename")
         print("Required arguments:")
         print("\t lab \t specifies the lab you want to test. This argument can be either lab1 or lab2.")
         print("\t filename is the pathname (absolute or relative) to your shell script.")

@@ -1,2 +1,2 @@
 #!/bin/bash 
-python ./z412L1/runner.py $@
+python ./zill412/runner.py $@
