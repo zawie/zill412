@@ -5,11 +5,25 @@ This is a COMP 412 student made test suite.
 Simply clone this repo into your project directory and execute the bash script 'test' located in the folder:
 ```
 git clone https://github.com/zawie/zill412
-./zill412/test lab1 ./412fe >> test_output.log
 ```
+```
+./zill412/lab1 >> test_output.log
+```
+```
+./zill412/lab2 >> test_output.log
+```
+
 The file piping (`>> test_output.log`) is optional, but the output is very long.
 
 These commands should be run in the root of your project directory.
+
+*⚠️ NOTE*: This assumes that both this test repository and your executable (412fe / 412alloc) is in the same directory and you run the commands from said directory.
+
+If your executable is not located in the root of the directory, you can call a different shell script:
+```
+./zill412/test lab1 <path 412fe>
+./zill412/test lab2 <path 412fe>
+```
 
 ## 🤖 How does it work?
 ### Lab 1
