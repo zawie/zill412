@@ -22,7 +22,7 @@ These commands should be run in the root of your project directory.
 If your executable is not located in the root of the directory, you can call a different shell script:
 ```
 ./zill412/test lab1 <path 412fe>
-./zill412/test lab2 <path 412fe>
+./zill412/test lab2 <path 412alloc>
 ```
 
 ## 🤖 How does it work?
