@@ -1,0 +1,3 @@
+#!/bin/bash 
+echo "Running \"./zill412/test lab2 ./412alloc\""
+./zill412/test lab2 ./412alloc
