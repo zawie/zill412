@@ -2,8 +2,8 @@
 This is a COMP 412 student made test suite. 
 
 Implementation contributors:
-- @billqian06 Bill Qian
-- @zawie Adam "Zawie" Zawierucha
+- Bill Qian ([@billqian06](https://github.com/billqian06))
+- Adam "Zawie" Zawierucha ([@zawie](https://github.com/zawie))
 
 ## 🚀 How do I use this?
 Simply clone this repo into your project directory and execute the bash script 'test' located in the folder:
