@@ -1,6 +1,10 @@
 # 🥒 zill412
 This is a COMP 412 student made test suite. 
 
+Implementation contributors:
+- Bill Qian
+- Adam "Zawie" Zawierucha
+
 ## 🚀 How do I use this?
 Simply clone this repo into your project directory and execute the bash script 'test' located in the folder:
 ```
