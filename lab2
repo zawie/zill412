@@ -1,3 +1,3 @@
 #!/bin/bash 
-echo "Running \"./zill412/test lab2 ./412alloc\""
+echo "Assuming your lab2 executable is at ./412alloc"
 ./zill412/test lab2 ./412alloc
