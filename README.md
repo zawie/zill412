@@ -1,5 +1,5 @@
 # 🥒 zill412
-This is a COMP 412 student made test suite. 
+This is a COMP 412 student made test suite for lab1, lab2, and *probably* lab3!
 
 Implementation contributors:
 - Bill Qian ([@billqian06](https://github.com/billqian06))
