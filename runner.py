@@ -118,14 +118,14 @@ def executeTest_lab1(filePath):
     (impl_lines, impl_has_succes_msg) = parseOutput(impl_output)
 
     if (ref_lines == impl_lines and ref_has_success_msg == impl_has_succes_msg):
-        print('? {} passed!'.format(filePath))
+        print('✅ {} passed!'.format(filePath))
         exit(0) #Passed
     else:
         num_errors = len(ref_lines)
         true_positives = len(impl_lines.intersection(ref_lines))
         false_positives = len(impl_lines.difference(ref_lines))
 
-        print('? {} failed!'.format(filePath))
+        print('❌ {} failed!'.format(filePath))
         print("- Summary:")
         tabprint("You identified {}/{} errors correctly.".format(true_positives, num_errors), 1)
         tabprint("You identified {} correct lines as errors.".format(false_positives), 1)
@@ -155,7 +155,7 @@ def executeTest_lab2(reg, filePath, return_list):
     num_ref_cycle, ref_lst = parse_sim_output(ref_output)
     num_impl_cycle, impl_lst = parse_sim_output(impl_output)
     if (ref_lst == impl_lst):
-        print('? {} passed!'.format(filePath))
+        print('✅ {} passed!'.format(filePath))
         percent_diff = (num_impl_cycle - num_ref_cycle) / num_ref_cycle
         if (percent_diff >= 0.1):
             print("Your number of cycles for this file is {:.2%} higher/lower of the number of cycles used by lab2_ref." \
@@ -172,7 +172,7 @@ def executeTest_lab2(reg, filePath, return_list):
         # true_positives = len(impl_lines.intersection(ref_lines))
         # false_positives = len(impl_lines.difference(ref_lines))
 
-        print('? {} failed!'.format(filePath))
+        print('❌ {} failed!'.format(filePath))
         print("- Summary:")
         # tabprint("You identified {}/{} errors correctly.".format(true_positives, num_errors), 1)
         # tabprint("You identified {} correct lines as errors.".format(false_positives), 1)
@@ -218,7 +218,7 @@ def runTests(lab, reg=5):
         p.join(TIME_LIMIT)
         if p.is_alive():
             p.terminate()
-            print('? {} failed!\n- Summary:\n\tTimed out! Your test took longer than {}s.\n\tThis limit can be modified in runner.py'.format(f, TIME_LIMIT))
+            print('❌ {} failed!\n- Summary:\n\tTimed out! Your test took longer than {}s.\n\tThis limit can be modified in runner.py'.format(f, TIME_LIMIT))
             fail_count += 1
             p.join()
         else:
@@ -231,15 +231,15 @@ def runTests(lab, reg=5):
     print("Your number of cycles is on average {:.2%} higher/lower than the number of cycles used by lab2_ref." \
           .format(return_list[2] / return_list[3]))
     if fail_count > 0:
-        print('\n? You passed {}/{} tests.'.format(num_tests - fail_count, num_tests))
+        print('\n🙃 You passed {}/{} tests.'.format(num_tests - fail_count, num_tests))
     else:
-        print('\n? You passed all {} tests!\n'.format(num_tests))
+        print('\n🚀 You passed all {} tests!\n'.format(num_tests))
 
 def main(lab, filename):
     print(lab, filename)
     # #Asser implementation has been specified
     # if (IMPL == ""):
-    #     print("?? You need to specificy your implementation path in runner.py!")
+    #     print("You need to specificy your implementation path in runner.py!")
     #     exit(1)
 
     IMPL = filename
