@@ -106,8 +106,11 @@ def parse_sim_output(output):
             string_int = int(line)
             output_lst.append(string_int)
         except ValueError:
-            if "cycle" in line:
-                cycle = int(line.split(' ')[-2])
+            try:
+                if "cycle" in line:
+                    cycle = int(line.split(' ')[-2])
+            except ValueError:
+                output_lst = ["The ILOC simulator was not able to execute your transformed ILOC file :("]
     return (cycle, output_lst)
 
 def executeTest_lab1(filePath):
