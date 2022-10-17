@@ -161,8 +161,15 @@ def executeTest_lab2(reg, filePath, return_list):
         print('✅ {} passed!'.format(filePath))
         percent_diff = (num_impl_cycle - num_ref_cycle) / num_ref_cycle
         if (percent_diff >= 0.1):
-            print("Your number of cycles for this file is {:.2%} higher/lower of the number of cycles used by lab2_ref." \
+            print("🐌 You are less effective on this test case.")
+            print("Your number of cycles for this file is {:.2%} higher than number of cycles used by the reference." \
                   .format(percent_diff))
+            print("Your cycles:\t" + str(num_impl_cycle))
+            print("Ref cycles:\t" + str(num_ref_cycle))
+        elif (percent_diff < 0):
+            print("🐇 You are more effective on this test case.")
+            print("Your number of cycles for this file is {:.2%} lower than number of cycles used by the reference." \
+                  .format(-percent_diff))
             print("Your cycles:\t" + str(num_impl_cycle))
             print("Ref cycles:\t" + str(num_ref_cycle))
         return_list[0] += num_impl_cycle
@@ -229,9 +236,9 @@ def runTests(lab, reg=5):
                 fail_count += 1
 
     print("----------------------------------------------------------------------")
-    print("Your aggregrate number of cycles is {:.2%} higher/lower than the aggregate number of cycles used by lab2_ref." \
+    print("Your aggregrate number of cycles is {:.2%} higher than the aggregate number of cycles used by lab2_ref." \
           .format((return_list[0] - return_list[1]) / return_list[1]))
-    print("Your number of cycles is on average {:.2%} higher/lower than the number of cycles used by lab2_ref." \
+    print("Your number of cycles is on average {:.2%} higher than the number of cycles used by lab2_ref." \
           .format(return_list[2] / return_list[3]))
     if fail_count > 0:
         print('\n🙃 You passed {}/{} tests.'.format(num_tests - fail_count, num_tests))
