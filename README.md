@@ -1,5 +1,5 @@
 # 🥒 zill412
-This is a COMP 412 student made test suite for lab1, lab2, and *probably* lab3!
+This is a COMP 412 student made test suite for lab1, lab2, and *probably* lab3! 
 
 Implementation contributors:
 - Bill Qian ([@billqian06](https://github.com/billqian06))
@@ -19,7 +19,7 @@ git clone https://github.com/zawie/zill412
 
 The file piping (`>> test_output.log`) is optional, but the output is very long.
 
-These commands should be run in the root of your project directory.
+These commands should be run in the root of your project directory. This needs to be ran on the clear system.
 
 *⚠️ NOTE*: This assumes that both this test repository and your executable (412fe / 412alloc) is in the same directory and you run the commands from said directory.
 
