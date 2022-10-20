@@ -61,10 +61,9 @@ def run(pathToImpl, prNum, pathToILOC):
 
     return output
 
-def run_sim(pathToSim, prNum, pathToILOC):
-
+def run_sim(pathToSim, prNum, pathToILOC, sim_input=None):
     #Execute implementatino on a specific iloc file
-    cmd = "{} {} {} {} {}".format(pathToSim, "-r", prNum, "<", pathToILOC)
+    cmd = "{} {} {} {} {} {}".format(pathToSim, "-r", prNum, (sim_input or ''), "<", pathToILOC)
     (_, output) = commands.getstatusoutput(cmd)
 
     return output
@@ -145,6 +144,17 @@ def executeTest_lab1(filePath):
 
         exit(1) #Failed
 
+def parseSimInput(filePath):
+    file = open(filePath)
+    for line in file:
+        match = re.match(r'//SIM INPUT:(.*)', line)
+        if match != None:
+            sim_input = match.group(1)
+            if sim_input == '':
+                return None
+            return sim_input
+    return None
+        
 def executeTest_lab2(reg, filePath, return_list):
     impl_block = run(IMPL, reg, filePath)
     ref_block = run(REF, reg, filePath)
@@ -152,8 +162,9 @@ def executeTest_lab2(reg, filePath, return_list):
     write_output_to_new_file(impl_block, "impl")
     write_output_to_new_file(ref_block, "ref")
 
-    impl_output = run_sim(SIM, reg, impl_output_filename)
-    ref_output = run_sim(SIM, reg, ref_output_filename)
+    sim_input = parseSimInput(filePath)
+    impl_output = run_sim(SIM, reg, impl_output_filename, sim_input=sim_input)
+    ref_output = run_sim(SIM, reg, ref_output_filename, sim_input=sim_input)
 
     num_ref_cycle, ref_lst = parse_sim_output(ref_output)
     num_impl_cycle, impl_lst = parse_sim_output(impl_output)
@@ -178,20 +189,9 @@ def executeTest_lab2(reg, filePath, return_list):
         return_list[3] += 1
         exit(0) #Passed
     else:
-        # num_errors = len(ref_lines)
-        # true_positives = len(impl_lines.intersection(ref_lines))
-        # false_positives = len(impl_lines.difference(ref_lines))
-
         print('❌ {} failed!'.format(filePath))
         print("- Summary:")
-        # tabprint("You identified {}/{} errors correctly.".format(true_positives, num_errors), 1)
-        # tabprint("You identified {} correct lines as errors.".format(false_positives), 1)
-        # if (ref_has_success_msg != impl_has_succes_msg):
-        #     tabprint("You {} a success message while the reference {}.".format(impl_has_succes_msg and "have" or "do not have", ref_has_success_msg and "does" or "does not"), 1)
-        #     if (not impl_has_succes_msg):
-        #         tabprint("NOTE: Your success message must contain the word \"(S|s)ucceeded\", \"(S|s)uccess\", \"SUCCESS\", or \"SUCCEEDED\"; this can be changed in runner.py.", 1)
-        # else:
-        #     tabprint("You and the reference both {} a success message.".format(impl_has_succes_msg and "have" or "do not have"), 1)
+        print("- Simulator input used:" + (sim_input or 'Nothing (None found in source file)'))
         print("- Reference output:")
         print(ref_lst)
         print("- Your output:")
