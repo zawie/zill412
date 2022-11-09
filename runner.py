@@ -278,7 +278,7 @@ def runTests(lab, reg=1000000):
 
     print("----------------------------------------------------------------------")
     print("Your aggregrate number of cycles is {:.2%} higher than the aggregate number of cycles used by {}_ref." \
-          .format(return_list[0] - return_list[1] / return_list[1], lab))
+          .format((return_list[0] - return_list[1])/ return_list[1], lab))
     print("Your number of cycles is on average {:.2%} higher than the number of cycles used by {}_ref." \
           .format(return_list[2] / return_list[3], lab))
     if fail_count > 0:
