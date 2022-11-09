@@ -1,0 +1,3 @@
+#!/bin/bash 
+echo "Assuming your lab3 executable is at ./412schedule"
+./zill412/test lab3 ./412schedule

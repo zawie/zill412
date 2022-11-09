@@ -11,10 +11,6 @@ Max time a test is allowed to run:
 """
 TIME_LIMIT = 1 #in seconds
 
-#IMPL = "/storage-home/a/adz2/comp412/lab1/412fe"
-IMPL = "./412alloc" #Path to your 412fe (MUST FILL OUT!!)
-REF = "~comp412/students/lab2/lab2_ref" #Path to reference solution
-SIM = "/clear/courses/comp412/students/lab2/sim" #Path to ILOC simulator
 REG_LIST = [5, 7] # You can change the list of physical register numbers you want to test.
 
 REPO_DIR = "./zill412"
@@ -54,7 +50,7 @@ def tabprint(output, tab_count):
         print('\t'*tab_count+str(num))
 
 #Returns a set of errored line numbers
-def run(pathToImpl, prNum, pathToILOC):
+def runLab2Impl(pathToImpl, prNum, pathToILOC):
 
     #Execute implementatino on a specific iloc file
     cmd = "{} {} {}".format(pathToImpl, prNum, pathToILOC)
@@ -62,9 +58,17 @@ def run(pathToImpl, prNum, pathToILOC):
 
     return output
 
-def run_sim(pathToSim, prNum, pathToILOC, sim_input=None):
+def runLab3Impl(pathToImpl, pathToILOC):
+
     #Execute implementatino on a specific iloc file
-    cmd = "{} {} {} {} {} {}".format(pathToSim, "-r", prNum, (sim_input or ''), "<", pathToILOC)
+    cmd = "{} {}".format(pathToImpl, pathToILOC)
+    (_, output) = commands.getstatusoutput(cmd)
+
+    return output
+
+def run_sim(sim, pathToILOC, sim_input=None, reg_count=1000000, interlock_mode="3"):
+    #Execute implementatino on a specific iloc file
+    cmd = "{} {} {} {} {} {} {}".format(sim, "-s", interlock_mode, "-r", reg_count, (sim_input or ''), pathToILOC)
     (_, output) = commands.getstatusoutput(cmd)
 
     return output
@@ -115,9 +119,9 @@ def parse_sim_output(output):
                 return (-1, ["The ILOC simulator was not able to execute your transformed ILOC file :("], False)
     return (cycle, output_lst, False)
 
-def executeTest_lab1(filePath):
-    ref_output = run(REF, filePath)
-    impl_output = run(IMPL, filePath)
+def execute_test_lab1(impl, filePath):
+    ref_output = run("~comp412/students/lab1/lab1_ref", filePath)
+    impl_output = run(impl, filePath)
 
     (ref_lines, ref_has_success_msg) = parseOutput(ref_output)
     (impl_lines, impl_has_succes_msg) = parseOutput(impl_output)
@@ -158,19 +162,32 @@ def parseSimInput(filePath):
             return sim_input
     return None
         
-def executeTest_lab2(reg, filePath, return_list):
-    impl_block = run(IMPL, reg, filePath)
-    ref_block = run(REF, reg, filePath)
+def execute_test_lab23(lab, reg, filePath, return_list):
+    if (lab == "lab2"):
+        sim = "/clear/courses/comp412/students/lab2/sim" #Path to ILOC simulator
+        ref = "~comp412/students/lab2/lab2_ref"
+        impl = "./412alloc"
+        interlock_mode = "3"
+        run = lambda impl, reg, f: runLab3Impl(impl, reg, f)
+    elif (lab == "lab3"):
+        sim = "/clear/courses/comp412/students/lab3/sim" #Path to ILOC simulator
+        ref = "~comp412/students/lab3/lab3_ref"
+        impl = "./412schedule"
+        interlock_mode = "1"
+        run = lambda impl, reg, f: runLab3Impl(impl, f)
+
+    impl_block = run(impl, reg, filePath)
+    ref_block = run(ref, reg, filePath)
+
+    print(sim, ref, impl)
 
     write_output_to_new_file(impl_block, "impl")
     write_output_to_new_file(ref_block, "ref")
 
     sim_input = parseSimInput(filePath)
 
-    # print("SIM INPUT: " + (sim_input or 'None'))
-
-    impl_output = run_sim(SIM, reg, impl_output_filename, sim_input=sim_input)
-    ref_output = run_sim(SIM, reg, ref_output_filename, sim_input=sim_input)
+    impl_output = run_sim(sim, impl_output_filename, reg_count=reg, interlock_mode=interlock_mode, sim_input=sim_input)
+    ref_output = run_sim(sim, ref_output_filename, reg_count=reg, interlock_mode=interlock_mode, sim_input=sim_input)
 
     num_ref_cycle, ref_lst, ref_seg_fault = parse_sim_output(ref_output)
     num_impl_cycle, impl_lst, impl_seg_fault = parse_sim_output(impl_output)
@@ -233,7 +250,7 @@ def getFiles():
                     files.append(f)
     return files
 
-def runTests(lab, reg=5):
+def runTests(lab, reg=1000000):
     files = getFiles()
     num_tests = len(files)
     fail_count = 0
@@ -245,9 +262,9 @@ def runTests(lab, reg=5):
     return_list.extend([0, 0, 0, 0])
     for f in files:
         if lab == "lab1":
-            p = multiprocessing.Process(target=executeTest_lab1, args=(f,))
+            p = multiprocessing.Process(target=execute_test_lab1, args=(f,))
         else:
-            p = multiprocessing.Process(target=executeTest_lab2, args=(reg, f, return_list))
+            p = multiprocessing.Process(target=execute_test_lab23, args=(lab, reg, f, return_list))
         p.start()
         p.join(TIME_LIMIT)
         if p.is_alive():
@@ -282,11 +299,15 @@ def main(lab, filename):
     if lab == "lab1":
         REF = "~comp412/students/lab1/lab1_ref"
         runTests(lab)
-    else:
+    elif lab == "lab2":
         REF = "~comp412/students/lab2/lab2_ref"
         for reg in REG_LIST:
             print('Run tests with register: ' + str(reg))
             runTests(lab, reg)
+    else: #lab3
+        REF = "~comp412/students/lab2/lab3_ref"
+        runTests(lab)
+
     print("\nConsider adding your own tests cases to the repository so the whole class can benefit!\nhttps://github.com/zawie/zill412\n")
 
 if __name__ == "__main__":
@@ -298,7 +319,7 @@ if __name__ == "__main__":
         print("Required arguments:")
         print("\t lab \t specifies the lab you want to test. This argument can be either lab1 or lab2.")
         print("\t filename is the pathname (absolute or relative) to your shell script.")
-    elif len(sys.argv) == 3 and (sys.argv[1] == "lab1" or sys.argv[1] == "lab2"):
+    elif len(sys.argv) == 3 and (sys.argv[1] == "lab1" or sys.argv[1] == "lab2" or sys.argv[1] == "lab3"):
         main(sys.argv[1], sys.argv[2])
     else:
         print("Incorrect command line arguments. Please use the -h flag for help.")
