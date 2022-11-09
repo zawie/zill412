@@ -18,13 +18,13 @@ COURSE_DIR = "/clear/courses/comp412/students"
 
 ILOC_DIRS = []
 ILOC_DIRS = [COURSE_DIR+"/ILOC/blocks/lab" + str(n) for n in ([2])]
-ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2012/lab3"]
-ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2013/lab2"]
-ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2013/lab3"]
-ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2014/lab2"]
-ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2014/lab3"]
-ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2015/lab2"]
-ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2015/lab3"]
+# ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2012/lab3"]
+# ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2013/lab2"]
+# ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2013/lab3"]
+# ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2014/lab2"]
+# ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2014/lab3"]
+# ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2015/lab2"]
+# ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2015/lab3"]
 #Add your own directory to ILOC_DIRS list!
 
 """
@@ -277,22 +277,16 @@ def runTests(lab, reg=1000000):
                 fail_count += 1
 
     print("----------------------------------------------------------------------")
-    print("Your aggregrate number of cycles is {:.2%} higher than the aggregate number of cycles used by lab2_ref." \
-          .format((return_list[0] - return_list[1]) / return_list[1]))
-    print("Your number of cycles is on average {:.2%} higher than the number of cycles used by lab2_ref." \
-          .format(return_list[2] / return_list[3]))
+    print("Your aggregrate number of cycles is {:.2%} higher than the aggregate number of cycles used by {}_ref." \
+          .format(return_list[0] - return_list[1] / return_list[1], lab))
+    print("Your number of cycles is on average {:.2%} higher than the number of cycles used by {}_ref." \
+          .format(return_list[2] / return_list[3], lab))
     if fail_count > 0:
         print('\n🙃 You passed {}/{} tests.'.format(num_tests - fail_count, num_tests))
     else:
         print('\n🚀 You passed all {} tests!\n'.format(num_tests))
 
 def main(lab, filename):
-    print(lab, filename)
-    # #Asser implementation has been specified
-    # if (IMPL == ""):
-    #     print("You need to specificy your implementation path in runner.py!")
-    #     exit(1)
-
     IMPL = filename
     if lab == "lab1":
         REF = "~comp412/students/lab1/lab1_ref"
