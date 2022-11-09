@@ -16,6 +16,9 @@ git clone https://github.com/zawie/zill412
 ```
 ./zill412/lab2 >> test_output.log
 ```
+```
+./zill412/lab3 >> test_output.log
+```
 
 The file piping (`>> test_output.log`) is optional, but the output is very long.
 
@@ -27,6 +30,7 @@ If your executable is not located in the root of the directory, you can call a d
 ```
 ./zill412/test lab1 <path 412fe>
 ./zill412/test lab2 <path 412alloc>
+./zill412/test lab3 <path 412schedule>
 ```
 
 ## 🤖 How does it work?
@@ -47,6 +51,9 @@ This checks if you emit a success message when the reference solution emits a su
 (basically any line containing the word "success" or "succeeded" but not "unsuccessful")
 
 ### Lab 2
+//TODO: Write this section
+
+### Lab 3
 //TODO: Write this section
 
 ## 🧱 How do I contribute?
