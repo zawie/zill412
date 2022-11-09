@@ -168,7 +168,7 @@ def execute_test_lab23(lab, reg, filePath, return_list):
         ref = "~comp412/students/lab2/lab2_ref"
         impl = "./412alloc"
         interlock_mode = "3"
-        run = lambda impl, reg, f: runLab3Impl(impl, reg, f)
+        run = lambda impl, reg, f: runLab2Impl(impl, reg, f)
     elif (lab == "lab3"):
         sim = "/clear/courses/comp412/students/lab3/sim" #Path to ILOC simulator
         ref = "~comp412/students/lab3/lab3_ref"
@@ -178,8 +178,6 @@ def execute_test_lab23(lab, reg, filePath, return_list):
 
     impl_block = run(impl, reg, filePath)
     ref_block = run(ref, reg, filePath)
-
-    print(sim, ref, impl)
 
     write_output_to_new_file(impl_block, "impl")
     write_output_to_new_file(ref_block, "ref")
