@@ -172,7 +172,7 @@ def execute_test_lab23(lab, reg, filePath, return_list):
     elif (lab == "lab3"):
         sim = "/clear/courses/comp412/students/lab3/sim" #Path to ILOC simulator
         ref = "~comp412/students/lab3/lab3_ref"
-        impl = "./412schedule"
+        impl = "./schedule"
         interlock_mode = "1"
         run = lambda impl, reg, f: runLab3Impl(impl, f)
 
