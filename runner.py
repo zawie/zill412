@@ -348,7 +348,7 @@ def getFiles():
                     files.append(f)
     return files
 
-def runTests(lab, reg=1000000):
+def runTests(impl, lab, reg=1000000):
     files = getFiles()
     # print(files)
     num_tests = len(files)
@@ -361,7 +361,7 @@ def runTests(lab, reg=1000000):
     return_list.extend([0, 0, 0, 0])
     for f in files:
         if lab == "lab1":
-            p = multiprocessing.Process(target=execute_test_lab1, args=("./412fe", f,))
+            p = multiprocessing.Process(target=execute_test_lab1, args=(impl, f,))
         else:
             p = multiprocessing.Process(target=execute_test_lab23, args=(lab, reg, f, return_list))
         p.start()
@@ -398,15 +398,15 @@ def main(lab, filename):
     IMPL = filename
     if lab == "lab1":
         REF = "~comp412/students/lab1/lab1_ref"
-        runTests(lab)
+        runTests(IMPL, lab)
     elif lab == "lab2":
         REF = "~comp412/students/lab2/lab2_ref"
         for reg in REG_LIST:
             print('Run tests with register: ' + str(reg))
-            runTests(lab, reg)
+            runTests(IMPL, lab, reg)
     else: #lab3
         REF = "~comp412/students/lab2/lab3_ref"
-        runTests(lab)
+        runTests(IMPL, lab)
 
     print("\nConsider adding your own tests cases to the repository so the whole class can benefit!\nhttps://github.com/zawie/zill412\n")
 
