@@ -33,7 +33,6 @@ Test suite implementation
 import sys
 import re
 import os
-# import commands
 import subprocess
 import multiprocessing
 
@@ -43,37 +42,6 @@ total_ref_cyles = 0
 impl_output_filename = "out_impl.i"
 ref_output_filename = "out_ref.i"
 
-#Helper print function
-# def print(output, tab_count):
-#     # for line in output.split('\n'):
-#     #     print('\t'*tab_count+line)
-#     for num in output:
-#         print('\t'*tab_count+str(num))
-
-#Returns a set of errored line numbers
-# def runLab2Impl(pathToImpl, prNum, pathToILOC):
-
-#     #Execute implementatino on a specific iloc file
-#     cmd = "{} {} {}".format(pathToImpl, prNum, pathToILOC)
-#     (_, output) = commands.getstatusoutput(cmd)
-
-#     return output
-
-# def runLab3Impl(pathToImpl, pathToILOC):
-
-#     #Execute implementatino on a specific iloc file
-#     cmd = "{} {}".format(pathToImpl, pathToILOC)
-#     (_, output) = commands.getstatusoutput(cmd)
-
-#     return output
-
-# def run_sim(sim, pathToILOC, sim_input=None, reg_count=1000000, interlock_mode="3"):
-#     #Execute implementatino on a specific iloc file
-#     cmd = "{} {} {} {} {} {} {}".format(sim, "-s", interlock_mode, "-r", reg_count, (sim_input or ''), pathToILOC)
-#     (_, output) = commands.getstatusoutput(cmd)
-
-#     return output
-import subprocess
 import subprocess
 
 def run(command, filePath):
@@ -149,21 +117,6 @@ def write_output_to_new_file(str_to_write, mode):
 def parseOutput(output):
     bad_lines = set()
     contains_success_msg = False
-    
-    # for line in output:
-    #     if isinstance(line, str):
-    #         match_error = re.match(r'^ERROR (\d+):', line)
-    #         if match_error:
-    #             error_code = match_error.group(1)
-    #             # Handle the error code as needed
-    #         if match_error != None:
-    #             bad_lines.add(int(match_error.group(1)))
-    #         elif not contains_success_msg:
-    #             #Check if the output contains a success message (on a non-error line)
-    #             search_success = re.search(r'(^|\s)(((S|s)ucce((ss)|(eded)))|(SUCCE((SS)|(EDED))))', line)
-    #             contains_success_msg = search_success != None
-    #     else:
-    #         pass
         
     return (bad_lines, contains_success_msg)
 
@@ -198,17 +151,6 @@ def execute_test_lab1(impl, filePath):
         num_errors = len(ref_lines)
         true_positives = len(impl_lines.intersection(ref_lines))
         false_positives = len(impl_lines.difference(ref_lines))
-
-        # print('❌ {} failed!'.format(filePath))
-        # print("- Summary:")
-        # print("You identified {}/{} errors correctly.".format(true_positives, num_errors), 1)
-        # print("You identified {} correct lines as errors.".format(false_positives), 1)
-        # if (ref_has_success_msg != impl_has_succes_msg):
-        #     print("You {} a success message while the reference {}.".format(impl_has_succes_msg and "have" or "do not have", ref_has_success_msg and "does" or "does not"), 1)
-        #     if (not impl_has_succes_msg):
-        #         print("NOTE: Your success message must contain the word \"(S|s)ucceeded\", \"(S|s)uccess\", \"SUCCESS\", or \"SUCCEEDED\"; this can be changed in runner.py.", 1)
-        # else:
-        #     print("You and the reference both {} a success message.".format(impl_has_succes_msg and "have" or "do not have"), 1)
         print(f'❌ {filePath} failed!')
         print("- Summary:")
         print(f'You identified {true_positives}/{num_errors} errors correctly.')
@@ -267,30 +209,7 @@ def execute_test_lab23(lab, reg, filePath, return_list):
     num_impl_cycle, impl_lst, impl_seg_fault = parse_sim_output(impl_output)
 
     if (ref_lst == impl_lst and ref_seg_fault == impl_seg_fault):
-        # print('✅ {} passed!'.format(filePath))
-        # if (num_ref_cycle == 0):
-        #     print("🤨 Reference solution took 0 cycles. Something weird is going on...")
-        # if (num_impl_cycle == 0):
-        #     print("🤨 Your solution took 0 cycles. Something weird is going on...")
-        # percent_diff = 0 # Set to be initially zero in case it is not set.
-        # if (ref_seg_fault):
-        #     print("🤨 Both reference and implementation allocated ILOC code seg faulted under simulation; do you have too many core files in your disk?")
-        #     print("- Simulator input used:" + (sim_input or 'Nothing (None found in source file)'))
-        # elif(num_ref_cycle > 0):
-        #     percent_diff = (num_impl_cycle - num_ref_cycle) / num_ref_cycle
-        #     if (percent_diff >= 0.1):
-        #         print("🐌 You are less effective on this test case.")
-        #         print("Your number of cycles for this file is {:.2%} higher than number of cycles used by the reference." \
-        #             .format(percent_diff))
-        #         print("Your cycles:\t" + str(num_impl_cycle))
-        #         print("Ref cycles:\t" + str(num_ref_cycle))
-        #     elif (percent_diff < 0):
-        #         print("🐇 You are more effective on this test case.")
-        #         print("Your number of cycles for this file is {:.2%} lower than number of cycles used by the reference." \
-        #             .format(-percent_diff))
-        #         print("Your cycles:\t" + str(num_impl_cycle))
-        #         print("Ref cycles:\t" + str(num_ref_cycle))
-
+       
         print(f'✅ {filePath} passed!')
 
         if num_ref_cycle == 0:
@@ -378,16 +297,6 @@ def runTests(impl, lab, reg=1000000):
                 fail_count += 1
 
     print("----------------------------------------------------------------------")
-    # print("Your aggregrate number of cycles is {:.2%} higher than the aggregate number of cycles used by {}_ref." \
-    #       .format((return_list[0] - return_list[1])/ return_list[1], lab))
-    # print("Your number of cycles is on average {:.2%} higher than the number of cycles used by {}_ref." \
-    #       .format(return_list[2] / return_list[3], lab))
-    # if fail_count > 0:
-    #     print('\n🙃 You passed {}/{} tests.'.format(num_tests - fail_count, num_tests))
-    # else:
-    #     print('\n🚀 You passed all {} tests!\n'.format(num_tests))
-    # print(f"Your aggregate number of cycles is {((return_list[0] - return_list[1]) / return_list[1]):.2%} higher than the aggregate number of cycles used by {lab}_ref.")
-    # print(f"Your number of cycles is on average {(return_list[2] / return_list[3]):.2%} higher than the number of cycles used by {lab}_ref.")
     if fail_count > 0:
         print(f'\n🙃 You passed {num_tests - fail_count}/{num_tests} tests.')
     else:
