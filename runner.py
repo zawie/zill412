@@ -18,13 +18,13 @@ COURSE_DIR = "/clear/courses/comp412/students"
 
 ILOC_DIRS = []
 ILOC_DIRS = [COURSE_DIR+"/ILOC/blocks/lab" + str(n) for n in ([2])]
-# ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2012/lab3"]
-# ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2013/lab2"]
-# ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2013/lab3"]
-# ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2014/lab2"]
-# ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2014/lab3"]
-# ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2015/lab2"]
-# ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2015/lab3"]
+ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2012/lab3"]
+ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2013/lab2"]
+ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2013/lab3"]
+ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2014/lab2"]
+ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2014/lab3"]
+ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2015/lab2"]
+ILOC_DIRS += [COURSE_DIR+"/ILOC/contributed/2015/lab3"]
 #Add your own directory to ILOC_DIRS list!
 
 """
@@ -80,6 +80,7 @@ def runLab3Impl(pathToImpl, pathToILOC):
     return output
 
 def run_sim(sim, pathToILOC, sim_input=None, reg_count=1000000, interlock_mode="3"):
+    # Adjust the command for the simulator depending on if there is an input or not.
     if sim_input is None:
         cmd = [
             sim,
