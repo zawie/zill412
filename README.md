@@ -5,6 +5,8 @@ Implementation contributors:
 - Bill Qian ([@billqian06](https://github.com/billqian06))
 - Adam "Zawie" Zawierucha ([@zawie](https://github.com/zawie))
 - Alison Qiu ([@alisonqiu](https://github.com/alisonqiu))
+- Shreyas Minocha
+- Stephen Xu
 
 ## 🚀 How do I use this?
 Simply clone this repo into your project directory and execute the bash script 'test' located in the folder:
