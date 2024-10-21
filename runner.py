@@ -80,13 +80,23 @@ def runLab3Impl(pathToImpl, pathToILOC):
     return output
 
 def run_sim(sim, pathToILOC, sim_input=None, reg_count=1000000, interlock_mode="3"):
-    cmd = [
-        sim,
-        "-s", interlock_mode,
-        "-r", str(reg_count),
-        sim_input or '',
-        pathToILOC
-    ]
+    # Adjust the command for the simulator depending on if there is an input or not.
+    if sim_input is None:
+        cmd = [
+            sim,
+            "-s", interlock_mode,
+            "-r", str(reg_count),
+            pathToILOC
+        ]
+    else:
+        cmd = [
+            sim,
+            "-s", interlock_mode,
+            "-r", str(reg_count),
+            '-i',
+            sim_input,
+            pathToILOC
+        ]
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     stdout, stderr = process.communicate()
     
@@ -183,7 +193,7 @@ def parseSimInput(filePath):
 def execute_test_lab23(lab, reg, filePath, return_list):
     if (lab == "lab2"):
         sim = "/clear/courses/comp412/students/lab2/sim" #Path to ILOC simulator
-        ref = "~comp412/students/lab2/lab2_ref"
+        ref = "/clear/courses/comp412/students/lab2/lab2_ref"
         impl = "./412alloc"
         interlock_mode = "3"
         run = lambda impl, reg, f: runLab2Impl(impl, reg, f)
@@ -301,7 +311,11 @@ def runTests(impl, lab, reg=1000000):
         print(f'\n🙃 You passed {num_tests - fail_count}/{num_tests} tests.')
     else:
         print(f'\n🚀 You passed all {num_tests} tests!\n')
-
+    
+    # Remove the out_impl.i and/or the out_ref.i files, if present. Useful for lab2
+    for filename in ['out_impl.i', 'out_ref.i']:
+        if os.path.exists(filename):
+            os.remove(filename)
 
 def main(lab, filename):
     IMPL = filename
